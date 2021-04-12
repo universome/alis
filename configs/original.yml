@@ -1,0 +1,31 @@
+dataset:
+  use_multi_embs: false
+
+synthesis:
+  force_zero_padding: false
+  modulated_second_conv: true
+  upsampling_mode: ~
+  min_resolution: ${input.resolution}
+  num_modes: 1
+  style:
+    is_spatial: false
+    fallback_to_mean: false
+    kimg_to_reach_max_shift_strength: 1
+
+  patchwise:
+    enabled: false
+
+  input:
+    type: "const"
+    resolution: 4
+    kwargs: {}
+
+  coords:
+    enabled: false
+
+  fmm:
+    enabled: false
+
+loss_kwargs:
+  pl_weight: 2
+  style_mixing_prob: 0.9

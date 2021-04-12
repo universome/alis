@@ -1,0 +1,58 @@
+num_gpus: 4
+dataset:
+  source_path: /ibex/scratch/projects/c2112/datasets/zip-data-links/${dataset.name}.zip
+  target_path: /tmp/datasets/${dataset.name}.zip
+debug: false
+print_only: false
+use_qos: true
+
+project_release_dir:
+  _target_: infra.utils.get_experiment_path
+  # master_dir: /ibex/scratch/skoroki/sgf/experiments
+  master_dir: /ibex/scratch/projects/c2112/new-sgf-experiments
+  experiment_name: ${experiment_name}
+
+sbatch_args:
+  constraint: "v100"
+  time: "7-0"
+  gres: gpu:${num_gpus}
+  cpus-per-task: 5
+  mem-per-gpu: 64G
+  cpus-per-gpu: 5
+  output: ${project_release_dir}/slurm.log
+
+sbatch_args_str:
+  _target_: infra.utils.cfg_to_args_str
+  cfg: ${sbatch_args}
+
+# Arguments that we want to pass via env into slurm job launcher
+env_args:
+  project_dir: ${project_release_dir}
+# env_args_str:
+#   _target_: infra.utils.cfg_to_args_str
+#   cfg: ${env_args}
+#   use_dashes: true
+
+training_cmd_cli_args:
+  outdir: ${project_release_dir}
+  data: ${dataset.target_path}
+  gpus: ${num_gpus}
+  cfg: auto
+  g_fmaps: 0.5
+  d_fmaps: 0.5
+  snap: 100
+
+  # Let's by default have only x flips
+  aug: noaug
+  mirror: 1
+  z_dim: 512
+  w_dim: 512
+
+  # By default, use ALIS config
+  hydra_cfg_name: "config.yml"
+
+training_cmd_cli_args_str:
+  _target_: infra.utils.cfg_to_args_str
+  cfg: ${training_cmd_cli_args}
+
+TORCH_EXTENSIONS_DIR: /tmp/torch_extensions

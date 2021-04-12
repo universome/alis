@@ -1,0 +1,77 @@
+dataset:
+  use_multi_embs: false
+
+synthesis:
+  force_zero_padding: false
+  modulated_second_conv: true
+  upsampling_mode: ~
+  min_resolution: ${input.resolution}
+  # num_modes: 128
+  mode_max_norm: 1
+  num_modes: 1
+  style:
+    is_spatial: true
+    fallback_to_mean: false
+    kimg_to_reach_max_shift_strength: 1
+
+  patchwise:
+    enabled: true
+    grid_size: 2
+    w_coord_dist: 4
+    w_lerp_multiplier: 1.0
+    mode_mixing_prob: 0.0
+    # mode_mixing_prob: 0.5
+    instance_norm: false
+
+  input:
+    type: "grid"
+    resolution: 4
+    kwargs:
+      grid_size: ${patchwise.grid_size}
+      w_coord_dist: ${patchwise.w_coord_dist}
+      w_lerp_multiplier: ${patchwise.w_lerp_multiplier}
+
+  coords:
+    enabled: true
+    kernel_size: 3
+    logarithmic: true
+    remove_lowest_freq: true
+    coord_dim: 2
+    fallback: false
+    no_fourier_fallback: false
+    use_cips_embs: false
+    channels_dict:
+      "8": {dim: 32, use_diagonal: true, use_cosine: true}
+      "16": {dim: 32, use_diagonal: true, use_cosine: true}
+      "32": {dim: 64, use_diagonal: true, use_cosine: true}
+      "64": {dim: 128, use_diagonal: true, use_cosine: true}
+      "128": {dim: 128, use_diagonal: true, use_cosine: true}
+      "256": {dim: 64, use_diagonal: true, use_cosine: true}
+      "512": {dim: 64, use_diagonal: true, use_cosine: true}
+      "1024": {dim: 64, use_diagonal: true, use_cosine: true}
+    fourier_scale: 10.0
+    growth_schedule:
+      enabled: false
+      time_to_reach_all: 5000
+    w_coord_dist: ${patchwise.w_coord_dist}
+    grid_size: ${patchwise.grid_size}
+
+  fmm:
+    enabled: false
+    ranks:
+      "8": 5
+      "16": 5
+      "32": 5
+      "64": 10
+      "128": 10
+      "256": 10
+      "512": 10
+      "1024": 10
+    mod_type: "mult"
+    use_rezero_fmm_add: false
+    activation: linear
+
+loss_kwargs:
+  pl_weight: 2
+  style_mixing_prob: 0.9
+  gamma: 10.0
