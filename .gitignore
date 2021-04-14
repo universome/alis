@@ -12,3 +12,4 @@ experiments/
 env/
 *.egg-info
 *.pkl
+data

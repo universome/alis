@@ -16,7 +16,7 @@ from utils import (
 )
 
 
-@hydra.main(config_name="../../configs/main.yml")
+@hydra.main(config_name="../configs/main.yml")
 def main(cfg: DictConfig) -> str:
     for key in cfg:
         if isinstance(cfg[key], DictConfig) and '_target_' in cfg[key]:
@@ -28,7 +28,7 @@ def main(cfg: DictConfig) -> str:
     before_train_cmd = '\n'.join(cfg.env.before_train_commands)
     torch_extensions_dir = os.environ.get('TORCH_EXTENSIONS_DIR', cfg.env.torch_extensions_dir)
     python_bin = cfg.env.python_bin
-    training_cmd = f'{before_train_cmd}\n TORCH_EXTENSIONS_DIR={torch_extensions_dir} {python_bin} src/train.py {cfg.train_args_str}'
+    training_cmd = f'{before_train_cmd}\n TORCH_EXTENSIONS_DIR={torch_extensions_dir} {python_bin} scripts/train.py {cfg.train_args_str}'
 
     print("<=== TRAINING COMMAND ===>")
     print(training_cmd)

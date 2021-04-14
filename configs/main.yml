@@ -3,29 +3,34 @@ env:
   base_project_dir: ${hydra:runtime.cwd}
   before_train_commands: []
   torch_extensions_dir: "/tmp/torch_extensions"
-  datasets_dir: "data"
+  data_dir: "data"
   objects_to_copy:
-    - ${env.base_project_dir}/src
     - ${env.base_project_dir}/configs
+    - ${env.base_project_dir}/dnnlib
+    - ${env.base_project_dir}/infra
+    - ${env.base_project_dir}/metrics
+    - ${env.base_project_dir}/scripts
+    - ${env.base_project_dir}/tests
+    - ${env.base_project_dir}/torch_utils
+    - ${env.base_project_dir}/training
+    - ${env.base_project_dir}/environment.yml
+    - ${env.base_project_dir}/setup.py
   # A list of objects that are static and too big
   # to be copy-pasted for each experiment
   symlinks_to_create:
     - ${env.base_project_dir}/data
 num_gpus: 4
-dataset:
-  source_path: /ibex/scratch/projects/c2112/datasets/zip-data-links/${dataset.name}.zip
-  target_path: /tmp/datasets/${dataset.name}.zip
 print_only: false
 
 project_release_dir:
   _target_: infra.utils.get_experiment_path
   # master_dir: /ibex/scratch/skoroki/sgf/experiments
-  master_dir: /ibex/scratch/projects/c2112/new-sgf-experiments
+  master_dir: ${env.base_project_dir}/experiments
   experiment_name: ${experiment_name}
 
-training_cmd_cli_args:
+train_args:
   outdir: ${project_release_dir}
-  data: ${dataset.target_path}
+  data: ${env.data_dir}/${dataset}.zip
   gpus: ${num_gpus}
   cfg: auto
   g_fmaps: 0.5
@@ -41,6 +46,6 @@ training_cmd_cli_args:
   # By default, use ALIS config
   hydra_cfg_name: "alis.yml"
 
-training_cmd_cli_args_str:
+train_args_str:
   _target_: infra.utils.cfg_to_args_str
-  cfg: ${training_cmd_cli_args}
+  cfg: ${train_args}
