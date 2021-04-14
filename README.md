@@ -42,5 +42,5 @@ We provide checkpoints for the following datasets:
 - [LHQ 1024x1024](https://vision-cair.s3.amazonaws.com/alis/lhq1024-snapshot.pkl) with FID = 7.8. Note: this checkpoint has patch size of 1024x512, i.e. the image is generated in just 2 halves.
 
 ### License
-The project is based on https://github.com/NVlabs/stylegan2-ada-pytorch (but with difaugs disabled)
-I am not a lawyer, but I suppose that NVidia License applies to this project: https://nvlabs.github.io/stylegan2-ada-pytorch/license.html
+The project is based on the [StyleGAN2-ADA repo](https://github.com/NVlabs/stylegan2-ada-pytorch) developed by NVidia.
+I am not a lawyer, but I suppose that [NVidia License](https://nvlabs.github.io/stylegan2-ada-pytorch/license.html) applies to this project then.
