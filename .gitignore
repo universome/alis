@@ -9,3 +9,6 @@ models/
 notebooks/zoo.ipynb
 _cache*
 experiments/
+env/
+*.egg-info
+*.pkl

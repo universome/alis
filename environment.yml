@@ -17,4 +17,5 @@ dependencies:
     - tqdm==4.59.0
     - gitpython
     - gpustat
+    - scikit-learn
     - -e .

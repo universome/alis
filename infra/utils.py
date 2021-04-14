@@ -10,37 +10,6 @@ import git
 from omegaconf import DictConfig
 
 
-BASE_PROJECT_DIR = '/ibex/scratch/projects/c2112/sgf'
-OBJECTS_TO_COPY = [os.path.join(BASE_PROJECT_DIR, d) for d in [
-    'scripts',
-    'configs',
-    'training',
-    'dnnlib',
-    'infra',
-    'metrics',
-    'torch_utils',
-    # 'dinr',
-    # 'train_net.py',
-    # 'requirements.txt',
-    # 'setup.py',
-]]
-
-# A list of objects that are static and too big
-# to be copy-pasted for each experiment
-SYMLINKS_TO_CREATE = [os.path.join(BASE_PROJECT_DIR, s) for s in [
-    # 'data',
-    # 'inception_stats',
-]]
-# BEFORE_TRAIN_CMD = "module unload cuda && module load module unload cuda/11.0.1 \n module load cmake \n"
-BEFORE_TRAIN_CMD = '\n'.join([
-    "module load cuda",
-    # "module load gcc/10.2.0",
-    "module load cmake",
-]) + "\n"
-PYTHON_BIN = '/ibex/scratch/projects/c2112/envs/sgf/bin/python'
-TORCH_EXTENSIONS_DIR = os.environ.get('TORCH_EXTENSIONS_DIR', '/tmp/torch_extensions')
-
-
 def copy_objects(target_dir: os.PathLike, objects_to_copy: List[os.PathLike]):
     for src_path in objects_to_copy:
         trg_path = os.path.join(target_dir, os.path.basename(src_path))
@@ -71,7 +40,7 @@ def create_symlinks(target_dir: os.PathLike, symlinks_to_create: List[os.PathLik
             os.symlink(src_path, trg_path)
 
 
-def is_git_repo(path=BASE_PROJECT_DIR):
+def is_git_repo(path: os.PathLike):
     try:
         _ = git.Repo(path).git_dir
         return True
@@ -79,12 +48,12 @@ def is_git_repo(path=BASE_PROJECT_DIR):
         return False
 
 
-def create_project_dir(project_dir: os.PathLike):
-    # if is_git_repo() and are_there_uncommitted_changes():
-    #     if click.confirm("There are uncommited changes. Continue?", default=False):
-    #         print('Ok...')
-    #     else:
-    #         raise PermissionError("Cannot created a dir when there are uncommited changes")
+def create_project_dir(project_dir: os.PathLike, objects_to_copy: List[os.PathLike], symlinks_to_create: List[os.PathLike]):
+    if is_git_repo(os.getcwd()) and are_there_uncommitted_changes():
+        if click.confirm("There are uncommited changes. Continue?", default=False):
+            print('Ok...')
+        else:
+            raise PermissionError("Cannot created a dir when there are uncommited changes")
 
     if os.path.exists(project_dir):
         if click.confirm(f'Dir {project_dir} already exists. Remove it?', default=False):
@@ -94,14 +63,14 @@ def create_project_dir(project_dir: os.PathLike):
             raise PermissionError("There is an existing dir and I cannot delete it.")
 
     os.makedirs(project_dir)
-    copy_objects(project_dir, OBJECTS_TO_COPY)
-    create_symlinks(project_dir, SYMLINKS_TO_CREATE)
+    copy_objects(project_dir, objects_to_copy)
+    create_symlinks(project_dir, symlinks_to_create)
 
     print(f'Created a project dir: {project_dir}')
 
 
 def get_git_hash() -> Optional[str]:
-    if not is_git_repo():
+    if not is_git_repo(os.getcwd()):
         return None
 
     try:
