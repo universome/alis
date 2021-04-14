@@ -22,6 +22,9 @@ This training command will create an experiment inside `experiments/` directory 
 This is needed to isolate the code which produces the model.
 
 
+### Inference
+The inference example can be found in [notebooks/generate.ipynb](notebooks/generate.ipynb)
+
 ### Data format
 We use the same data format as the original [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch) repo: it is a zip of images.
 It is assumed that all data is located in a single directory, specified in `configs/main.yml`.

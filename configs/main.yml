@@ -24,7 +24,6 @@ print_only: false
 
 project_release_dir:
   _target_: infra.utils.get_experiment_path
-  # master_dir: /ibex/scratch/skoroki/sgf/experiments
   master_dir: ${env.base_project_dir}/experiments
   experiment_name: ${experiment_name}
 
