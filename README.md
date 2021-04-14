@@ -1,5 +1,11 @@
 ### About
 This repo contains the official implementation of the [Aligning Latent and Image Spaces to Connect the Unconnectable](https://arxiv.org/todo) paper.
+It is a GAN model which can generate infinite images of diverse and complex scenes.
+
+![ALIS generation example](assets/teaser.jpg "ALIS generation example")
+
+[[Project page]](http://universome.github.io/alis)
+[[Paper]](https://arxiv.org/todo)
 
 ### Installation
 To install, run the following command:
