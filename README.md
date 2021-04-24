@@ -15,6 +15,9 @@ conda activate ./env
 ```
 
 Note: the tensorboard requirement is crucial, because otherwise upfirdn2d will not compile for some magical reason.
+The repo should work both on Linux/MacOS and Windows machines.
+However, on Windows, there might arise difficulties with installing some requirements: please see [#3](https://github.com/universome/alis/issues/3) to troubleshoot.
+Also, since the current repo is heavily based on StyleGAN2-ADA, it might be helpful to check [the original installation requirements](https://github.com/NVlabs/stylegan2-ada-pytorch#requirements).
 
 ### Training
 To train the model, navigate to the project directory and run:
@@ -35,7 +38,7 @@ The inference example can be found in [notebooks/generate.ipynb](notebooks/gener
 We use the same data format as the original [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch) repo: it is a zip of images.
 It is assumed that all data is located in a single directory, specified in `configs/main.yml`.
 Put your datasets as zip archives into `data/` directory.
-
+It is recommended to preprocess the dataset with the procedure described in Algorithm 1 since it noticeably affects the results (see Table 3).
 
 ### Pretrained checkpoints
 We provide checkpoints for the following datasets:
@@ -44,3 +47,13 @@ We provide checkpoints for the following datasets:
 ### License
 The project is based on the [StyleGAN2-ADA repo](https://github.com/NVlabs/stylegan2-ada-pytorch) developed by NVidia.
 I am not a lawyer, but I suppose that [NVidia License](https://nvlabs.github.io/stylegan2-ada-pytorch/license.html) applies to this project then.
+
+### BibTeX
+```
+@article{ALIS,
+  title={Aligning Latent and Image Spaces to Connect the Unconnectable},
+  author={Skorokhodov, Ivan and Sotnikov, Grigorii and Elhoseiny, Mohamed},
+  journal={arXiv preprint arXiv:2104.06954},
+  year={2021}
+}
+```
