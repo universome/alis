@@ -76,6 +76,11 @@ We collected 90k high-resolution nature landscape images and provide them for do
 The images come with Unsplash/Creative Commons/U.S. Government Works licenses which allow distribution and use for research purposes.
 For details, see [lhq.md](./lhq.md) and Section 4 in the paper.
 
+Downloading files:
+```
+python download_lhq.py [DATASET_NAME]
+```
+
 ### License
 The project is based on the [StyleGAN2-ADA repo](https://github.com/NVlabs/stylegan2-ada-pytorch) developed by NVidia.
 I am not a lawyer, but I suppose that [NVidia License](https://nvlabs.github.io/stylegan2-ada-pytorch/license.html) applies to the code of this project then.

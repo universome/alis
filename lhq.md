@@ -16,6 +16,11 @@ We collected 90 000 high-resolution landscape images from [Unsplash](https://uns
 <img src="assets/lhq.png" alt="25 random images from LHQ" style="max-width: 500px"/>
 </div>
 
+Downloading files:
+```
+python download_lhq.py [DATASET_NAME]
+```
+
 # License
 
 https://creativecommons.org/publicdomain/zero/1.0/

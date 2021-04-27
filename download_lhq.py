@@ -6,7 +6,25 @@ import math
 import argparse
 import requests
 import shutil
+import urllib
 from urllib import parse as urlparse
+
+from tqdm import tqdm
+
+
+class DownloadProgressBar(tqdm):
+    """
+    Copy-pasted from https://stackoverflow.com/a/53877507/2685677
+    """
+    def update_to(self, b=1, bsize=1, tsize=None):
+        if tsize is not None:
+            self.total = tsize
+        self.update(b * bsize - self.n)
+
+
+def download_file_with_progress(url, output_path):
+    with DownloadProgressBar(unit='B', unit_scale=True, miniters=1, desc=url.split('/')[-1]) as t:
+        urllib.request.urlretrieve(url, filename=output_path, reporthook=t.update_to)
 
 
 DATASET_TO_LINKS = {
@@ -79,7 +97,7 @@ def download_dataset(dataset_name: str):
         file_size = convert_size(int(url_parameters['fsize'][0]))
         save_path = os.path.join(save_dir, filename)
         print(f'Downloading {i+1}/{len(file_urls)} files: {save_path} (size: {file_size})')
-        download_file(download_url, save_path)
+        download_file_with_progress(download_url, save_path)
 
 
 if __name__ == '__main__':
