@@ -57,9 +57,13 @@ We provide checkpoints for the following datasets:
 
 ### LHQ dataset
 
+**Note**: images are sorted by their likelihood. That's why images with smaller idx are much more noisy.
+We will release a filtered version soon.
+
 <div style="text-align:center">
 <img src="assets/lhq.png" alt="25 random images from LHQ" style="max-width: 500px"/>
 </div>
+
 
 We collected 90k high-resolution nature landscape images and provide them for download in the following formats:
 | Path       | Size | Number of files | Format | Description |

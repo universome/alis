@@ -1,4 +1,8 @@
 # Landscapes HQ dataset
+
+**Note**: images are sorted by their likelihood. That's why images with smaller idx are much more noisy.
+We will release a filtered version soon.
+
 We collected 90 000 high-resolution landscape images from [Unsplash](https://unsplash.com) (64,669 images) and [Flickr](https://www.flickr.com/) (25,331 images).
 
 | Path       | Size | Number of files | Format | Description |
