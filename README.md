@@ -52,7 +52,7 @@ It is recommended to preprocess the dataset with the procedure described in Algo
 
 ### Pretrained checkpoints
 We provide checkpoints for the following datasets:
-- [LHQ 1024x1024](https://vision-cair.s3.amazonaws.com/alis/lhq1024-snapshot.pkl) with FID = 7.8. Note: this checkpoint has patch size of 1024x512, i.e. the image is generated in just 2 halves.
+- [LHQ 1024x1024](https://kaust-cair.s3.amazonaws.com/alis/lhq1024-snapshot.pkl) with FID = 7.8. Note: this checkpoint has patch size of 1024x512, i.e. the image is generated in just 2 halves.
 
 
 ### LHQ dataset
