@@ -2,7 +2,7 @@ env:
   python_bin: "python" # Path to the python bin
   base_project_dir: ${hydra:runtime.cwd}
   before_train_commands: []
-  torch_extensions_dir: "/tmp/torch_extensions"
+  torch_extensions_dir: "~/.cache/torch_extensions"
   data_dir: "data"
   objects_to_copy:
     - ${env.base_project_dir}/configs
