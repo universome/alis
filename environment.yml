@@ -8,6 +8,7 @@ dependencies:
   - cudatoolkit=10.2
   - pytorch=1.7.1
   - torchvision=0.8.2
+  - opencv=4.5.2
   - pip:
     - hydra-core==1.0.6
     - click==7.1.2
